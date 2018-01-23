@@ -13,11 +13,18 @@ if [[ ! $VERSION ]] ; then
   exit 1
 fi
 
+function install_mpmath_from_source() {
+  git clone https://github.com/fredrik-johansson/mpmath.git fredrik-johansson/mpmath
+  pushd fredrik-johansson/mpmath
+  $HOME/virtualenv/$VIRTENV_VERSION/bin/python setup.py install
+  popd
+}
+
 function install_sympy_from_source() {
   pushd $HOME/build
+  install_mpmath_from_source
   git clone https://github.com/sympy/sympy.git sympy/sympy
   pushd sympy/sympy
-  $HOME/virtualenv/$VIRTENV_VERSION/bin/pip install nose pytz cython
   $HOME/virtualenv/$VIRTENV_VERSION/bin/python setup.py build
   $HOME/virtualenv/$VIRTENV_VERSION/bin/python setup.py install
   $HOME/virtualenv/$VIRTENV_VERSION/bin/python bin/test

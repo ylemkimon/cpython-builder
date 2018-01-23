@@ -35,7 +35,7 @@ before_script:
 - 'export LSB_RELEASE=${LSB_RELEASE:-$(lsb_release -rs || echo ${$(sw_vers -productVersion)%*.*})}'
 - 'export OS_NAME=${OS_NAME:-$(lsb_release -is | tr "A-Z" "a-z" || echo "osx")}'
 - 'export ARCH=${ARCH:-$(uname -m)}'
-- 'export PACKAGES=${PACKAGES:-pip nose pytest mock wheel}'
+- 'export PACKAGES=${PACKAGES:-pip wheel}'
 - export PYTHON_CONFIGURE_OPTS="--with-wide-unicode --enable-shared --enable-ipv6 --enable-loadable-sqlite-extensions --with-computed-gotos $CONFIGURE_OPTS"
 - sudo chown -R $USER $HOME/.cache
 - |
