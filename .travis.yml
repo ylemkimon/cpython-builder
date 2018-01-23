@@ -21,7 +21,7 @@ jobs:
 
 env:
   global:
-  - VERSION='3.6-dev'
+  - VERSION='3.7-dev'
 
 install:
 - pushd /opt/pyenv/

@@ -13,17 +13,14 @@ if [[ ! $VERSION ]] ; then
   exit 1
 fi
 
-function install_numpy() {
-  $HOME/virtualenv/$VIRTENV_VERSION/bin/pip install --upgrade numpy
-}
-
-function install_numpy_from_source() {
+function install_sympy_from_source() {
   pushd $HOME/build
-  git clone https://github.com/numpy/numpy.git numpy/numpy
-  pushd numpy/numpy
+  git clone https://github.com/sympy/sympy.git sympy/sympy
+  pushd sympy/sympy
   $HOME/virtualenv/$VIRTENV_VERSION/bin/pip install nose pytz cython
   $HOME/virtualenv/$VIRTENV_VERSION/bin/python setup.py build
   $HOME/virtualenv/$VIRTENV_VERSION/bin/python setup.py install
+  $HOME/virtualenv/$VIRTENV_VERSION/bin/python bin/test
   popd
   popd
 }
@@ -67,12 +64,4 @@ if [[ $PACKAGES ]] ; then
   $HOME/virtualenv/$VIRTENV_VERSION/bin/pip install --upgrade $PACKAGES
 fi
 
-if [[ "${ALIAS}" = nightly ]]; then
-  install_numpy_from_source
-else
-  if [[ ${VERSION} == pypy* ]]; then
-    $HOME/virtualenv/$VIRTENV_VERSION/bin/${PYTHON_BIN} -m ensurepip
-  fi
-  install_numpy
-fi
-
+install_sympy_from_source
